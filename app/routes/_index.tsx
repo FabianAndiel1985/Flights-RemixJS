@@ -5,6 +5,7 @@ import ArticleOverview from "~/components/ArticleOverview";
 import Logo from "~/components/Logo";
 import { TextField } from "@radix-ui/themes";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
  
 export const meta: MetaFunction = () => {
@@ -25,17 +26,25 @@ export async function loader() {
 }
  
 export default function Index() {
-  const {results} = useLoaderData<typeof loader>();
-  
+  let {results} = useLoaderData<typeof loader>();
+  const [query, setQuery] = useState("");
+
+
+  if(query !== "") {
+    const lowerCaseQuery = query.toLocaleLowerCase();
+    results = results.filter((elment:any)=>elment.title.toLowerCase().includes(lowerCaseQuery));
+  }
+
   return (    
     <>
       <Logo/>
     <div   
         className={css({
         display: "flex",
-        justifyContent: "center", // Center horizontally
+        justifyContent: "center"
       })} >
-      <TextField.Root placeholder="Search" className={css({width:"200px"})}>
+      <TextField.Root  placeholder="Search" className={css({width:"200px"})} 
+      value={query} onChange={(e => {setQuery(e.target.value)})}>
         <TextField.Slot side={"right"}>
           <MagnifyingGlassIcon height="16" width="16"/>
         </TextField.Slot>

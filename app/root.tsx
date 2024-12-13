@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 import "./tailwind.css";
 
@@ -22,7 +23,19 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export async function loader() {
+  const url = 'https://api.spaceflightnewsapi.net/v4/articles';
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+  const json = await response.json();
+  return json;
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useLoaderData<typeof loader>();
+  
   return (
     <html lang="en">
       <head>
@@ -41,5 +54,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return <p>hallo</p>;
 }

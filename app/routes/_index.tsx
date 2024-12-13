@@ -34,7 +34,7 @@ export default function Index() {
       { results.length > 0 &&
         results.map((result:any)=>(
           <li key={result.id}>
-            <ArticleOverview title={result.title} summary={result.summary} news_site={result.news_site} published_at={result.published_at}/>
+            <ArticleOverview  imgSrc={result.image_url} title={result.title} summary={result.summary} news_site={result.news_site} published_at={result.published_at} imgLink={result.url} />
           </li>
         ))
       }

@@ -1,19 +1,22 @@
 import { css } from "styled-system/css";
-import { Flex, Text, Button, Heading } from "@radix-ui/themes";
+import {  Text, Heading } from "@radix-ui/themes";
+import Image from "./Image";
 
 interface ArticleOverviewProps {
+    imgSrc: string;
     title: string;
     summary: string;
     published_at:string;
     news_site:string;
+    imgLink:string;
   }
 
-const ArticleOverview = ({title,summary,published_at,news_site}:ArticleOverviewProps) => {
-  
+const ArticleOverview = ({title,summary,published_at,news_site,imgSrc,imgLink}:ArticleOverviewProps) => {
     return (
     <>
-        <div className={css({ border:"2px solid black", maxWidth:"600px" })}>
-            <img/>
+        <div className={css({ maxWidth:"800px", mt:"80px" })}>
+            <Image imgSrc={imgSrc} imgLink={imgLink}/>
+            <br/>
             <Heading> {title} </Heading>
             <br/>
             <Text> {summary}</Text>

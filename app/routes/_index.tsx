@@ -1,7 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { css } from "styled-system/css";
+import ArticleOverview from "~/components/ArticleOverview";
 import Logo from "~/components/Logo";
+import { Flex, Text, Button } from "@radix-ui/themes";
 
  
 export const meta: MetaFunction = () => {
@@ -22,11 +24,21 @@ export async function loader() {
 }
  
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
+  const {results} = useLoaderData<typeof loader>();
+  console.log(results)
+
   return (    
     <>
       <Logo/>
-      <div className={css({ fontSize: "2xl", fontWeight: 'bold' })}>Hello 🐼!</div>
+      <ul>
+      { results.length > 0 &&
+        results.map((result:any)=>(
+          <li key={result.id}>
+            <ArticleOverview title={result.title} summary={result.summary} news_site={result.news_site} published_at={result.published_at}/>
+          </li>
+        ))
+      }
+    </ul>
     </>
   );
 }

@@ -6,8 +6,9 @@ import {
    Outlet
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import styles from "./index.css?url";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 
 
@@ -18,12 +19,8 @@ export const links: LinksFunction = () => [
   },
 ];
 
-
-
-
 export function Layout({ children }: { children: React.ReactNode }) {
 
-  
   return (
     <html lang="en">
       <head>
@@ -42,5 +39,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet/>;
+  return (<>
+          <Theme>
+            <Outlet/>
+          </Theme>;
+        </>)
 }

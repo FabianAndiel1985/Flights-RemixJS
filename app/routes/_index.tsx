@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { css } from "styled-system/css";
+import Logo from "~/components/Logo";
 
  
 export const meta: MetaFunction = () => {
@@ -22,8 +23,10 @@ export async function loader() {
  
 export default function Index() {
   const data = useLoaderData<typeof loader>();
-  console.log(data)
-  return (
-    <div className={css({ fontSize: "2xl", fontWeight: 'bold' })}>Hello 🐼!</div>
+  return (    
+    <>
+      <Logo/>
+      <div className={css({ fontSize: "2xl", fontWeight: 'bold' })}>Hello 🐼!</div>
+    </>
   );
 }

@@ -3,7 +3,8 @@ import { useLoaderData } from "@remix-run/react";
 import { css } from "styled-system/css";
 import ArticleOverview from "~/components/ArticleOverview";
 import Logo from "~/components/Logo";
-import { Flex, Text, Button } from "@radix-ui/themes";
+import { TextField } from "@radix-ui/themes";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
  
 export const meta: MetaFunction = () => {
@@ -25,11 +26,22 @@ export async function loader() {
  
 export default function Index() {
   const {results} = useLoaderData<typeof loader>();
-  console.log(results)
-
+  
   return (    
     <>
       <Logo/>
+    <div   
+        className={css({
+        display: "flex",
+        justifyContent: "center", // Center horizontally
+      })} >
+      <TextField.Root placeholder="Search" className={css({width:"200px"})}>
+        <TextField.Slot side={"right"}>
+          <MagnifyingGlassIcon height="16" width="16"/>
+        </TextField.Slot>
+      </TextField.Root>
+    </div>
+
       <ul>
       { results.length > 0 &&
         results.map((result:any)=>(

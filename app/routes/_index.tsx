@@ -28,7 +28,7 @@ export async function loader() {
 export default function Index() {
   let {results} = useLoaderData<typeof loader>();
   const [query, setQuery] = useState("");
-
+  const [tempQuery, setTempQuery] = useState(""); 
 
   if(query !== "") {
     const lowerCaseQuery = query.toLocaleLowerCase();
@@ -42,11 +42,11 @@ export default function Index() {
         className={css({
         display: "flex",
         justifyContent: "center"
-      })} >
+      })}>
       <TextField.Root  placeholder="Search" className={css({width:"200px"})} 
-      value={query} onChange={(e => {setQuery(e.target.value)})}>
+      value={tempQuery} onChange={(e => {setTempQuery(e.target.value)})}>
         <TextField.Slot side={"right"}>
-          <MagnifyingGlassIcon height="16" width="16"/>
+          <MagnifyingGlassIcon height="16" width="16" onClick={(e)=>{setQuery(tempQuery)}}/>
         </TextField.Slot>
       </TextField.Root>
     </div>

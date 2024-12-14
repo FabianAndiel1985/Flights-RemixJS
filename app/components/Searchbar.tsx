@@ -17,7 +17,6 @@ export const Searchbar = ({
   return (
     <TextField.Root
       placeholder="Search"
-      className={css({ width: "500px" })}
       value={tempQuery}
       onChange={(e) => {
         setTempQuery(e.target.value);

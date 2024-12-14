@@ -25,10 +25,24 @@ export async function loader() {
   return json;
 }
 
-
 enum Sorting {
   Alphabetically,
   PublishingDate
+}
+
+export const sortAlphabetically = (results:[])=> {
+  results.sort((a:any, b:any) => {
+    const titleA = a.title.toLowerCase(); 
+    const titleB = b.title.toLowerCase();
+    if (titleA < titleB) {
+      return -1;
+    }
+    if (titleA > titleB) {
+      return 1;
+    }
+    return 0;
+  }
+  )
 }
 
 export default function Index() {
@@ -36,6 +50,15 @@ export default function Index() {
   const [query, setQuery] = useState("");
   const [tempQuery, setTempQuery] = useState(""); 
   const [wayOfSorting, setWayOfSorting]= useState<Sorting>(Sorting.Alphabetically);
+
+  switch (wayOfSorting) {
+    case Sorting.PublishingDate: 
+    break;
+      default:
+    sortAlphabetically(results);
+      break;
+  }  
+
 
   if(query !== "") {
     const lowerCaseQuery = query.toLocaleLowerCase();
@@ -57,6 +80,8 @@ export default function Index() {
         </TextField.Slot>
       </TextField.Root>
     </div>
+
+    
 
       <ul>
       { results.length > 0 &&

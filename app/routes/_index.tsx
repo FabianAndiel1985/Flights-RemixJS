@@ -3,15 +3,11 @@ import { useLoaderData } from "@remix-run/react";
 import { css } from "styled-system/css";
 import ArticleOverview from "~/components/ArticleOverview";
 import Logo from "~/components/Logo";
-import { TextField } from "@radix-ui/themes";
-import {
-  LetterCaseUppercaseIcon,
-  MagnifyingGlassIcon,
-} from "@radix-ui/react-icons";
 import { useState } from "react";
-import { LapTimerIcon } from "@radix-ui/react-icons";
 import { sortAlphabetically, sortPublishingDate } from "~/services/sorting";
 import { ApiResponse, Article, Sorting } from "~/types/types";
+import { Searchbar } from "~/components/Searchbar";
+import { SortIcon } from "~/components/SortIcon";
 
 export const meta: MetaFunction = () => {
   return [
@@ -48,7 +44,7 @@ export default function Index() {
   }
 
   if (query !== "") {
-    const lowerCaseQuery = query.toLocaleLowerCase();
+    const lowerCaseQuery: string = query.toLocaleLowerCase();
     results = results.filter((elment: any) =>
       elment.title.toLowerCase().includes(lowerCaseQuery)
     );
@@ -63,44 +59,19 @@ export default function Index() {
           justifyContent: "center",
         })}
       >
-        <TextField.Root
-          placeholder="Search"
-          className={css({ width: "200px" })}
-          value={tempQuery}
-          onChange={(e) => {
-            setTempQuery(e.target.value);
-          }}
-        >
-          <TextField.Slot side={"right"}>
-            <MagnifyingGlassIcon
-              height="16"
-              width="16"
-              onClick={(e) => {
-                setQuery(tempQuery);
-              }}
-              className={css({ _hover: { cursor: "pointer" } })}
-            />
-          </TextField.Slot>
-        </TextField.Root>
-        {wayOfSorting == Sorting.Alphabetically ? (
-          <LapTimerIcon
-            className={css({ _hover: { cursor: "pointer" }, margin: "auto 0" })}
-            onClick={() => {
-              setWayOfSorting(Sorting.PublishingDate);
-            }}
-          />
-        ) : (
-          <LetterCaseUppercaseIcon
-            className={css({ _hover: { cursor: "pointer" }, margin: "auto 0" })}
-            onClick={() => {
-              setWayOfSorting(Sorting.Alphabetically);
-            }}
-          />
-        )}
+        <Searchbar
+          tempQuery={tempQuery}
+          setTempQuery={setTempQuery}
+          setQuery={setQuery}
+        />
+        <SortIcon
+          wayOfSorting={wayOfSorting}
+          setWayOfSorting={setWayOfSorting}
+        />
       </div>
 
       <ul>
-        {results.length > 0 &&
+        {results.length > 0 ? (
           results.map((result: any) => (
             <li key={result.id}>
               <ArticleOverview
@@ -112,7 +83,10 @@ export default function Index() {
                 imgLink={result.url}
               />
             </li>
-          ))}
+          ))
+        ) : (
+          <p>Keine Artikel zu Ihrer Suche</p>
+        )}
       </ul>
     </>
   );

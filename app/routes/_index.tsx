@@ -53,21 +53,33 @@ export default function Index() {
   return (
     <>
       <Logo />
+
       <div
         className={css({
-          display: "flex",
-          justifyContent: "center",
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
         })}
       >
-        <Searchbar
-          tempQuery={tempQuery}
-          setTempQuery={setTempQuery}
-          setQuery={setQuery}
-        />
-        <SortIcon
-          wayOfSorting={wayOfSorting}
-          setWayOfSorting={setWayOfSorting}
-        />
+        <div></div>
+        <div>
+          <Searchbar
+            tempQuery={tempQuery}
+            setTempQuery={setTempQuery}
+            setQuery={setQuery}
+          />
+        </div>
+        <div
+          className={css({
+            display: "flex",
+            alignItems: "center",
+            pl: "20px",
+          })}
+        >
+          <SortIcon
+            wayOfSorting={wayOfSorting}
+            setWayOfSorting={setWayOfSorting}
+          />
+        </div>
       </div>
 
       <ul>

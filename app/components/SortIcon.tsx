@@ -10,7 +10,6 @@ interface SortIconProps {
 
 const iconStyles = css({
   _hover: { cursor: "pointer" },
-  margin: "auto 0",
 });
 
 export const SortIcon = ({

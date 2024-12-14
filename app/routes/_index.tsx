@@ -24,11 +24,18 @@ export async function loader() {
   const json = await response.json();
   return json;
 }
- 
+
+
+enum Sorting {
+  Alphabetically,
+  PublishingDate
+}
+
 export default function Index() {
   let {results} = useLoaderData<typeof loader>();
   const [query, setQuery] = useState("");
   const [tempQuery, setTempQuery] = useState(""); 
+  const [wayOfSorting, setWayOfSorting]= useState<Sorting>(Sorting.Alphabetically);
 
   if(query !== "") {
     const lowerCaseQuery = query.toLocaleLowerCase();
@@ -45,8 +52,8 @@ export default function Index() {
       })}>
       <TextField.Root  placeholder="Search" className={css({width:"200px"})} 
       value={tempQuery} onChange={(e => {setTempQuery(e.target.value)})}>
-        <TextField.Slot side={"right"}>
-          <MagnifyingGlassIcon height="16" width="16" onClick={(e)=>{setQuery(tempQuery)}}/>
+        <TextField.Slot side={"right"}  >
+          <MagnifyingGlassIcon  height="16" width="16" onClick={(e)=>{setQuery(tempQuery)}}  className={css({_hover: { cursor: 'pointer' }})}/>
         </TextField.Slot>
       </TextField.Root>
     </div>

@@ -8,7 +8,7 @@ import { LetterCaseUppercaseIcon, MagnifyingGlassIcon } from "@radix-ui/react-ic
 import { useState } from "react";
 import {LapTimerIcon} from "@radix-ui/react-icons";
 import { sortAlphabetically, sortPublishingDate } from "~/services/sorting";
-import { ApiResponse, Sorting } from "~/types/types";
+import { ApiResponse, Article, Sorting } from "~/types/types";
  
 export const meta: MetaFunction = () => {
   return [
@@ -27,10 +27,11 @@ export const loader:LoaderFunction = async():Promise<ApiResponse> => {
   return data;
 }
 
+
 export default function Index() {
-  let {results} = useLoaderData<typeof loader>();
-  const [query, setQuery] = useState("");
-  const [tempQuery, setTempQuery] = useState(""); 
+  let {results} : { results: Article[] } = useLoaderData<typeof loader>();
+  const [query, setQuery] = useState<string>("");
+  const [tempQuery, setTempQuery] = useState<string>(""); 
   const [wayOfSorting, setWayOfSorting]= useState<Sorting>(Sorting.Alphabetically);
 
   switch (wayOfSorting) {
@@ -55,6 +56,7 @@ export default function Index() {
         display: "flex",
         justifyContent: "center"
       })}>
+        
       <TextField.Root  placeholder="Search" className={css({width:"200px"})} 
       value={tempQuery} onChange={(e => {setTempQuery(e.target.value)})}>
         <TextField.Slot side={"right"}  >

@@ -1,4 +1,4 @@
-interface Article {
+export interface Article {
     id: number;
     title: string;
     url: string;
@@ -16,8 +16,6 @@ export interface ApiResponse {
     results: Article[];
   }
 
-  
-  
   export enum Sorting {
     Alphabetically,
     PublishingDate

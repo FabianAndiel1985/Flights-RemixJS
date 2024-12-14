@@ -4,8 +4,9 @@ import { css } from "styled-system/css";
 import ArticleOverview from "~/components/ArticleOverview";
 import Logo from "~/components/Logo";
 import { TextField } from "@radix-ui/themes";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { LetterCaseUppercaseIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import {LapTimerIcon} from "@radix-ui/react-icons";
 
  
 export const meta: MetaFunction = () => {
@@ -45,6 +46,12 @@ export const sortAlphabetically = (results:[])=> {
   )
 }
 
+export const sortPublishingDate = (results:[])=> {
+  results.sort((a:any, b:any) => 
+    Date.parse(b.published_at) - Date.parse(a.published_at)
+  )
+}
+
 export default function Index() {
   let {results} = useLoaderData<typeof loader>();
   const [query, setQuery] = useState("");
@@ -53,12 +60,12 @@ export default function Index() {
 
   switch (wayOfSorting) {
     case Sorting.PublishingDate: 
+        sortPublishingDate(results);
     break;
       default:
-    sortAlphabetically(results);
+      	sortAlphabetically(results);
       break;
   }  
-
 
   if(query !== "") {
     const lowerCaseQuery = query.toLocaleLowerCase();
@@ -79,9 +86,19 @@ export default function Index() {
           <MagnifyingGlassIcon  height="16" width="16" onClick={(e)=>{setQuery(tempQuery)}}  className={css({_hover: { cursor: 'pointer' }})}/>
         </TextField.Slot>
       </TextField.Root>
+      {
+      wayOfSorting == Sorting.Alphabetically ? 
+        <LapTimerIcon  
+        className={css({_hover: { cursor: 'pointer' }, margin:"auto 0"})}
+        onClick={()=>{setWayOfSorting(Sorting.PublishingDate)}}
+        /> 
+        :
+         <LetterCaseUppercaseIcon  
+         className={css({_hover: { cursor: 'pointer' },margin:"auto 0"})}
+         onClick={()=>{setWayOfSorting(Sorting.Alphabetically)}}
+         />
+      }
     </div>
-
-    
 
       <ul>
       { results.length > 0 &&

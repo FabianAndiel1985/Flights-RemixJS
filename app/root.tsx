@@ -42,6 +42,6 @@ export default function App() {
   return (<>
           <Theme>
             <Outlet/>
-          </Theme>;
+          </Theme>
         </>)
 }

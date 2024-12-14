@@ -58,9 +58,7 @@ export default function Index() {
         className={css({
           position: "relative",
           display: "grid",
-          gridTemplateColumns: {
-            sm: "1fr 4fr 1fr",
-          },
+          gridTemplateColumns: "1fr 4fr 1fr",
         })}
       >
         <div></div>

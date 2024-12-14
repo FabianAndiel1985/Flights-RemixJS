@@ -10,16 +10,30 @@ const Logo = (): ReactElement => {
   });
 
   return (
-    <div className={cx(flexCenter, css({ height: "100px", mb: "40px" }))}>
+    <>
       <div
-        className={cx(
-          flexCenter,
-          css({ width: "400px", height: "80px", border: "2px solid black" })
-        )}
+        className={css({
+          display: "grid",
+          height: "100px",
+          mb: "40px",
+          gridTemplateColumns: "1fr 3.2fr 1fr",
+        })}
       >
-        <Heading>Hello Im the Logo</Heading>
+        <div></div>
+        <div
+          className={cx(
+            flexCenter,
+            css({
+              height: "80px",
+              border: "2px solid black",
+            })
+          )}
+        >
+          <Heading>Hello Im the Logo</Heading>
+        </div>
+        <div></div>
       </div>
-    </div>
+    </>
   );
 };
 

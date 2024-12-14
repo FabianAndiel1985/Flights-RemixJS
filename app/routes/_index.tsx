@@ -82,24 +82,33 @@ export default function Index() {
         </div>
       </div>
 
-      <ul>
-        {results.length > 0 ? (
-          results.map((result: any) => (
-            <li key={result.id}>
-              <ArticleOverview
-                imgSrc={result.image_url}
-                title={result.title}
-                summary={result.summary}
-                news_site={result.news_site}
-                published_at={result.published_at}
-                imgLink={result.url}
-              />
-            </li>
-          ))
-        ) : (
-          <p>Keine Artikel zu Ihrer Suche</p>
-        )}
-      </ul>
+      <div
+        className={css({
+          pl: { lg: "20px" },
+          padding: { smToLg: "20px" },
+          display: { smToLg: "flex" },
+          justifyContent: { smToLg: "center" },
+        })}
+      >
+        <ul>
+          {results.length > 0 ? (
+            results.map((result: any) => (
+              <li key={result.id}>
+                <ArticleOverview
+                  imgSrc={result.image_url}
+                  title={result.title}
+                  summary={result.summary}
+                  news_site={result.news_site}
+                  published_at={result.published_at}
+                  imgLink={result.url}
+                />
+              </li>
+            ))
+          ) : (
+            <p>Keine Artikel zu Ihrer Suche</p>
+          )}
+        </ul>
+      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { css } from "styled-system/css";
 import ArticleOverview from "~/components/ArticleOverview";
@@ -7,49 +7,24 @@ import { TextField } from "@radix-ui/themes";
 import { LetterCaseUppercaseIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import {LapTimerIcon} from "@radix-ui/react-icons";
-
+import { sortAlphabetically, sortPublishingDate } from "~/services/sorting";
+import { ApiResponse, Sorting } from "~/types/types";
  
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Flights" },
+    { name: "description", content: "Welcome to the Flights App" },
   ];
 };
 
-export async function loader() {
+export const loader:LoaderFunction = async():Promise<ApiResponse> => {
   const url = 'https://api.spaceflightnewsapi.net/v4/articles';
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);
   }
-  const json = await response.json();
-  return json;
-}
-
-enum Sorting {
-  Alphabetically,
-  PublishingDate
-}
-
-export const sortAlphabetically = (results:[])=> {
-  results.sort((a:any, b:any) => {
-    const titleA = a.title.toLowerCase(); 
-    const titleB = b.title.toLowerCase();
-    if (titleA < titleB) {
-      return -1;
-    }
-    if (titleA > titleB) {
-      return 1;
-    }
-    return 0;
-  }
-  )
-}
-
-export const sortPublishingDate = (results:[])=> {
-  results.sort((a:any, b:any) => 
-    Date.parse(b.published_at) - Date.parse(a.published_at)
-  )
+  const data:ApiResponse = await response.json();
+  return data;
 }
 
 export default function Index() {

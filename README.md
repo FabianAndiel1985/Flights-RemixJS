@@ -1,40 +1,16 @@
-# Welcome to Remix!
+# Welcome to Flights!
 
-- 📖 [Remix docs](https://remix.run/docs)
+- Checkout the web presence of "Flights":
+  [Flights](https://flights-remix-js.vercel.app/)
 
-## Development
+## Installation
 
-Run the dev server:
+- Clone the repo on your local machine:
+  [Repo](https://github.com/FabianAndiel1985/flights-remix.js)
 
-```shellscript
-npm run dev
-```
+## Usage
 
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+- What do you want to read about? The searchbar will query all the titles of our displayed articles
+  for your entered search terms.
+- Next to the searchbar you will find a small icon. With this you can toggle between datewise sorting oft
+  the articles (clock) and alphabetical sorting of the articles (uppercase Icon).

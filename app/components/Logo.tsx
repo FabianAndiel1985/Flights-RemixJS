@@ -13,17 +13,17 @@ const Logo = (): ReactElement => {
     <>
       <div
         className={css({
-          display: "grid",
-          height: "100px",
+          position: "relative",
+          pt: "10px",
           mb: "40px",
-          gridTemplateColumns: "1fr 3.2fr 1fr",
         })}
       >
-        <div></div>
         <div
           className={cx(
             flexCenter,
             css({
+              width: "50%",
+              margin: "auto",
               height: "80px",
               border: "2px solid black",
             })
@@ -31,7 +31,6 @@ const Logo = (): ReactElement => {
         >
           <Heading>Hello Im the Logo</Heading>
         </div>
-        <div></div>
       </div>
     </>
   );
